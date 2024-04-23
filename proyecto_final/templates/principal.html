@@ -2,26 +2,26 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de Transporte Universidad Iberoamericana</title>
+    <title>{TITULO}</title>
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Bienvenido al Sistema de Transporte de la Universidad Iberoamericana</h1>
+            <h1>{CABECERA}</h1>
         </header>
         
         <section class="welcome-section">
-            <p>Para acceder a todas las funcionalidades, por favor inicia sesión o crea una nueva cuenta.</p>
+            {MENSAJE_BIENVENIDA}
             <div class="action-buttons">
-                <a href="login.html" class="button">Iniciar Sesión</a>
-                <a href="registro.html" class="button">Registrarse</a>
+                <a href="proyectoFinal.php?action=login" class="button">Iniciar Sesión</a>
+                <a href="proyectoFinal.php?action=register" class="button">Registrarse</a>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; Universidad Iberoamericana - Sistema de Transporte</p>
+        <p>{PIE_DE_PAGINA}</p>
     </footer>
 </body>
 </html>
