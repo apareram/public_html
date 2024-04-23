@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" media="All" href="./css/estilos.css">
+        
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        
+        <script src="./js/scripts.js"></script>
+        
+        <title>
+            Ejemplo Ajax 2
+        </title>
+    </head>
+    <body>
+        <div class="wrapContenido layout">
+            <h1> Bienvenido a la p&aacute;gina que busca presidentes por estado</h1>
+            <br>
+            <div>
+                Estado: <input type="text" name="estado" onkeyup="buscaPresidentes(this.value);">
+            </div>
+            
+            <div id="resultadoBusqueda" class="contenido">
+                
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>  
+	<head>  
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=1220" />
+		<link rel="stylesheet" type="text/css" media="All" href="./css/ejemploAjaxStyle.css" />  
+		<link rel="shortcut icon" href="../img/iconos/favicon.ico">
+		
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		
+		<script src="./js/ejemploAjaxScripts.js"></script>
+		<title>Ejemplo Ajax</title>
+	</head>  
+	<body>
+		<div class="wrapContenido layout">
+			<div>
+				<nav>
+					<ul id="menu">
+						<li>
+							<a class= "comLink" href="javascript:;" onclick="despliegaContenido(1, 'ejemplo1', 1);"><span class="menu_home">CONTENIDO 1</span></a>
+						</li>
+						<li>
+							<a class= "comLink" href="javascript:;" onclick="despliegaContenido(2, 'ejemplo2', 2);"><span class="menu_home">CONTENIDO 2</span></a>
+						</li>
+						<li>
+							<a class= "comLink" href="javascript:;" onclick="despliegaContenido(3, 'ejemplo3', 3);"><span class="menu_home">CONTENIDO 3</span></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+	
+			<div id="contenido" class="contenido">
+				
+			</div>
+		</div>
+	</body>
+</html>

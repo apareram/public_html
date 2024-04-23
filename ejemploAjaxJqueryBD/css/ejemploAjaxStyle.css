@@ -1,0 +1,128 @@
+body{ 
+	text-align: center; 
+} 
+
+.wrapContenido{
+	margin:0 auto 10px; 
+	z-index:1; 
+	width:1250px;
+	height:827px;
+	position:absolute;
+	top:-8px;
+	text-align: left; 
+} 
+
+.layout{
+	width:1250px; 
+	margin:0 auto; 
+	position:relative;
+}
+
+
+.comLink:link {
+	font-family: Verdana, Helvetica, Arial, sans-serif; 
+	font-size: 15px;
+	color: #1D5477;
+}
+
+.comLink:visited {
+	font-family: Verdana, Helvetica, Arial, sans-serif; 
+	font-size: 15px;
+	color: #FF9367;
+}
+
+.comLink:hover {
+	font-family: Verdana, Helvetica, Arial, sans-serif; 
+	font-size: 16px;
+	color: #C0C0C0;
+}
+
+.comLink:active {
+	font-family: Verdana, Helvetica, Arial, sans-serif; 
+	font-size: 16px;
+	color: #C0C0C0;
+}
+
+.menu{
+	position: absolute;
+	top: 30px;
+	left: 210px;
+}
+
+/* Para el nav menu principal */
+nav{
+	width:900px;
+	height:60px;
+	/*background-color:blue;*/
+	margin:0 auto;
+	position: absolute;
+	top: 90px;
+	left: 115px;
+}
+
+/* Es el ul principal, configurado para que no muestre vi–etas y con las configuraciones para
+   alinear al centro */
+#menu{
+	list-style:none;
+	list-style-position:inside;
+	width:900px;
+	margin:0 auto;
+	display:block;
+	text-align:center;
+}
+
+/* Es cada opci—n principal del menu, los ordena horizontalmente con la propiedad float.
+   Al tener un ancho fijo, se alinea su contenido al centro y con position:relative; permite
+   que al pasar el cursor, aparezcan las opciones bajo cada opci—n principal
+*/
+#menu li{
+	float:left;
+	padding:20px;
+	width:140px;
+	position:relative;
+}
+
+
+/* Configuraci—n de como se veran los enlaces */
+#menu a, #menu a:visited{
+	/*color:white;*/
+	text-decoration:none;
+	outline:none;
+}
+
+#menu a:hover{
+	text-decoration:underline;
+	color: #1D5477;
+}
+
+.menu_home{
+	font-family: Verdana, Helvetica, Arial;
+	font-size: 15px;
+	color: #1D5477;
+	/*border-style:solid;
+	border-width:1px;
+	border-color:#ffffff;
+	border-spacing:10px 50px;*/
+}
+
+.contenido{
+	width: 1000px;
+	height: 520px;
+	position: absolute;
+	top: 180px;
+	left: 123px;
+	/*background: #ffff00;*/
+}
+
+.contenido_main{
+	width:700px;
+	height: 500px;
+	font-size:16px;
+	font-family: Arial;
+	color: #586770;
+	position: relative;
+	top: 10px;
+	left: 290px;
+	/*background: #ffffff;*/
+	overflow: auto;
+}
