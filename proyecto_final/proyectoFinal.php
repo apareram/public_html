@@ -13,13 +13,27 @@
 	    mysqli_select_db($link, $cfgServer['dbname']) or die("Could not select database");
 
         if ($_GET['action'] == 'login') {
+
             $template->addBlockfile("CONTENIDO", "LOGIN", "login.html");
             $template->setCurrentBlock("LOGIN");
             $template->touchBlock("LOGIN");
+
             if(isset($_GET['login'])){
-                $username = $_GET['username'];
-                $password = $_GET['password'];
+
+                $username = mysqli_real_escape_string($link, $_POST['username']);
+                $password = mysqli_real_escape_string($link, $_POST['password']);
                 $query = "SELECT username FROM Usuarios WHERE username = '$username' AND contraseña = '$password'";
+                $result = mysqli_query($link, $query);
+
+                if (mysqli_num_rows($result) > 0 && isset($_POST['loginButton'])) {
+
+                    $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
+                    $template->setCurrentBlock("DASHBOARD");
+                    $template->touchBlock("DASHBOARD");
+                    
+                } else {
+                    $template->setVariable("CONTENIDO", "Usuario no encontrado. Por favor, <a href='proyectoFinal.php?action=register'>regístrate</a>.");
+                }
             }
         } 
         elseif ($_GET['action'] == 'register') {
