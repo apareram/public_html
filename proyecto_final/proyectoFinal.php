@@ -21,29 +21,27 @@
             $template->touchBlock("LOGIN");
         } 
 
-        // si se pica el boton de "iniciar sesión" dentro de login.html
-        if(isset($_GET['action']) && $_GET['action'] == 'login' && isset($_GET['loginBot'])) {
-            // se guarda lo que este en las cajas de texto
-            $username = $_GET['username'];
-            $password = $_GET['password'];
-        
-            // se concatena el query con lo introdicido por el usuario en la variable $query
-            $query = "SELECT username FROM Usuarios WHERE username = '$username' AND contraseña = '$password'";
-            // se hace el query en la base de datos
-            $result = mysqli_query($link, $query) or die("Query failed");
+        // Inicio de sesión
+        if (isset($_GET['loginBot'])) {
+            $username = mysqli_real_escape_string($link, $_GET['username']);
+            $password = mysqli_real_escape_string($link, $_GET['password']);
 
-            // si lo introducido por el usuario esta en la base de datos se despliega dashboard.html
+            $query = "SELECT username FROM Usuarios WHERE username = '$username' AND contraseña = '$password'";
+            $result = mysqli_query($link, $query);
+
             if (mysqli_num_rows($result) > 0) {
+                // Usuario encontrado, iniciar sesión y cargar el dashboard
                 $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
                 $template->setCurrentBlock("DASHBOARD");
-                $template->touchBlock("DASHBOARD");
-            }
-            // si no se enucentra se manda un mensaje de error 
-            else {
-                $template->addBlockfile("CONTENIDO", "ERROR", "error.html");
-                $template->setVariable("MENSAJE_ERROR", "No existe el usuarioa: '$username'");
-                $template->setCurrentBlock("ERROR");
-                $template->touchBlock("ERROR");
+                $template->setVariable("USERNAME", $username);
+                //$template->setVariable("NOTIFICACIONES", obtenerNumeroNotificaciones($username));
+                $template->parseCurrentBlock("DASHBOARD");
+            } else {
+                // Usuario no encontrado, mostrar error y cargar el formulario de inicio de sesión nuevamente.
+                $template->addBlockfile("CONTENIDO", "LOGIN", "login.html");
+                $template->setCurrentBlock("LOGIN");
+                $template->setVariable("MENSAJE_ERROR", "No existe el usuario: '$username'");
+                $template->parseCurrentBlock("LOGIN");
             }
         }
         // si se pica el boton de registrase en mensajeBienvenida.html se abrira registro.html
@@ -79,9 +77,8 @@
             }
 
         }
-    } 
-    // si no sucede ninguna acción se cargara mensajeBienvenida.html
-    else {
+    }else {
+        // Cargar la página principal si no se está intentando iniciar sesión o registrar
         $template->addBlockfile("CONTENIDO", "WELCOME", "mensajeBienvenida.html");
         $template->setCurrentBlock("WELCOME");
         $template->touchBlock("WELCOME");
