@@ -1,4 +1,3 @@
-<script>
 // Esperar a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('addSchedule').addEventListener('click', addScheduleEntry);
@@ -44,4 +43,12 @@ function addScheduleEntry() {
 
 // Ejecuta la función una vez para añadir el primer conjunto de selección de horario
 addScheduleEntry();
-</script>
+
+//funcion error
+function verifica() {
+    if (document.formaPresidentes.apellidoPresidente.value.length == 0) {
+        alert("Por favor ingresa el apellido del presidente.");
+        return false;
+    }
+    return true;
+}
