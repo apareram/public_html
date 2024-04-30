@@ -1,6 +1,7 @@
 <div class="register-container">
     <h2>Crear Cuenta</h2>
-    <form action="proyectoFinal.php?action=register" method="post">
+    <form action="proyectoFinal.php" method="get">
+        <input type="hidden" name="action" value="register">
         <input type="text" name="nombre" placeholder="Nombre" required>
         <input type="text" name="aPaterno" placeholder="Apellido Paterno" required>
         <input type="text" name="aMaterno" placeholder="Apellido Materno" required>
@@ -18,7 +19,8 @@
             </div>
             <button type="button" id="addSchedule">Añadir Horario</button>
         </div>
-        <button type="submit" name="register">Registrarse</button>
+        <input type="hidden" name="action" value="register">
+        <button type="submit" name="regBot" value="clicked">Registrarse</button>
     </form>
-    <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+    <p>¿Ya tienes una cuenta? <a href="proyectoFinal.php?action=entrar">Inicia sesión aquí</a></p>
 </div>
