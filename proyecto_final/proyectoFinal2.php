@@ -2,18 +2,20 @@
     include 'configs.php';
     require_once "HTML/Template/ITX.php";
 
-    // se carga el template principal donde el contenido de este cambiara
     $template = new HTML_Template_ITX('./templates');
     $template->loadTemplatefile("principal.html", true, true);
 
+    // Establecer el título por defecto
     $template->setVariable("TITULO", "Sistema de Transporte Universidad Iberoamericana");
 
-    if ((isset($_GET['action'])) || (isset($_POST['action']))){
-        // se hace la conexión a la base de datos
-        $link = mysqli_connect($cfgServer['host'], $cfgServer['user'], $cfgServer['password']) or die('Could not connect: ' . mysqli_error($link));
-		mysqli_select_db($link, $cfgServer['dbname']) or die("Could not select database");
+    if ((isset($_GET['action'])) || (isset($_POST['action']))) {
+        // Sección de acciones basadas en la acción especificada en la solicitud GET o POST
 
-        // si se pica el boton de login en mensajeBienvenida.html se abrira login.html
+        // Se hace la conexión a la base de datos
+        $link = mysqli_connect($cfgServer['host'], $cfgServer['user'], $cfgServer['password']) or die('Could not connect: ' . mysqli_error($link));
+        mysqli_select_db($link, $cfgServer['dbname']) or die("Could not select database");
+
+        // Si se pica el botón de login en mensajeBienvenida.html se abrirá login.html
         if ($_GET['action'] == 'entrar') {
             $template->addBlockfile("CONTENIDO", "LOGIN", "login.html");
             $template->setCurrentBlock("LOGIN");
@@ -25,14 +27,11 @@
             $username = mysqli_real_escape_string($link, $_GET['username']);
             $password = mysqli_real_escape_string($link, $_GET['password']);
 
-            // checando si es usuario
-            $uQuery = "SELECT username FROM Usuarios WHERE username = '$username' AND contrasena = '$password'";
-            $uResult = mysqli_query($link, $uQuery);
-            // checando si es admin
-            $aQuery = "SELECT username FROM Administradores WHERE username = '$username' AND contrasena = '$password'";
-            $aResult = mysqli_query($link, $uQuery);
+            $query = "SELECT username FROM Usuarios WHERE username = '$username' AND contrasena = '$password'";
 
-            if (mysqli_num_rows($uResult) > 0) {
+            $result = mysqli_query($link, $query);
+
+            if (mysqli_num_rows($result) > 0) {
                 // Usuario encontrado, iniciar sesión y cargar el dashboard
                 $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
                 $template->setCurrentBlock("DASHBOARD");
@@ -40,24 +39,15 @@
                 //$template->setVariable("NOTIFICACIONES", obtenerNumeroNotificaciones($username));
                 $template->parseCurrentBlock("DASHBOARD");
             } else {
-                print($aQuery);
-                if (mysqli_num_rows($aResult) > 0) {
-                    // Usuario encontrado, iniciar sesión y cargar el dashboard
-                    $template->addBlockfile("CONTENIDO", "ADMIN", "admin.html");
-                    $template->setCurrentBlock("ADMIN");
-                    $template->setVariable("USERNAME", $username);
-                    //$template->setVariable("NOTIFICACIONES", obtenerNumeroNotificaciones($username));
-                    $template->parseCurrentBlock("ADMIN");
-                } else {
-                    // Usuario no encontrado, mostrar error y cargar el formulario de inicio de sesión nuevamente.
-                    $template->addBlockfile("CONTENIDO", "MENSAJE_ERROR", "error.html");
-                    $template->setVariable("MENSAJE_ERROR", "Contraseña incorrecta, intenta de nuevo.");
-                    $template->setCurrentBlock("MENSAJE_ERROR");
-                    $template->parseCurrentBlock("MENSAJE_ERROR");
-                }
+                // Usuario no encontrado, mostrar error y cargar el formulario de inicio de sesión nuevamente.
+                $template->addBlockfile("CONTENIDO", "MENSAJE_ERROR", "error.html");
+                $template->setVariable("MENSAJE_ERROR", "Contraseña incorrecta, intenta de nuevo.");
+                $template->setCurrentBlock("MENSAJE_ERROR");
+                $template->parseCurrentBlock("MENSAJE_ERROR");
             }
         }
-        // si se pica el boton de registrase en mensajeBienvenida.html se abrira registro.html
+        
+        // Si se pica el botón de registrarse en mensajeBienvenida.html se abrirá registro.html
         if ($_GET['action'] == 'registrar') {
             $template->addBlockfile("CONTENIDO", "REGISTER", "registro.html");
             $template->setCurrentBlock("REGISTER");
@@ -95,6 +85,11 @@
                 $zip_code = $_POST['zip_code'];
                 
                 $query_insert_user = "INSERT INTO Usuarios (nombre, ap_paterno, ap_materno, username, email, contrasena, calle, numero, colonia, zip_code) VALUES ('$nombre', '$ap_paterno', '$ap_materno', '$username', '$email', '$contrasena', '$calle', '$numero', '$colonia', '$zip_code')";
+                if (!mysqli_query($link, $query_insert_user)) {
+                    echo "Error de inserción: " . mysqli_error($link);
+                } else {
+                    echo "Usuario registrado exitosamente.";
+                }
 
                 $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
                 $template->setCurrentBlock("DASHBOARD");
@@ -103,19 +98,20 @@
                 $template->parseCurrentBlock("DASHBOARD");
             }
         }
-        // si se pica el boton de perfil
-        if ($_GET['action'] == 'perfil') {
-            $template->addBlockfile("CONTENIDO", "PERFIL", "perfil.html");
-            $template->setCurrentBlock("PERFIL");
-            $template->touchBlock("PERFIL");
-        }
 
-    }else {
+    } else {
         // Cargar la página principal si no se está intentando iniciar sesión o registrar
         $template->addBlockfile("CONTENIDO", "WELCOME", "mensajeBienvenida.html");
         $template->setCurrentBlock("WELCOME");
         $template->touchBlock("WELCOME");
     }
+    if ($_GET['action'] == 'perfil') {
+        $template->addBlockfile("CONTENIDO", "PERFIL", "perfil.html");
+        $template->setCurrentBlock("PERFIL");
+        $template->touchBlock("PERFIL");
+    }
+    // Cargar los nuevos templates
 
+    // Mostrar la plantilla final con las modificaciones realizadas
     $template->show();
 ?>

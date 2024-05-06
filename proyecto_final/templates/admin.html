@@ -1,0 +1,36 @@
+<body>
+    <header>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar usuario...">
+            <button type="button">Buscar</button>
+        </div>
+        <div class="admin-info">
+            <span>Admin {USERNAME}</span>
+        </div>
+    </header>
+    <table class="table-users">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- PHP generated rows -->
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe</td>
+                <td>johndoe@example.com</td>
+                <td>
+                    <a href="editUser.php?id=XX" class="action-link edit-button">Editar</a>
+                    <a href="deleteUser.php?id=XX" class="action-link delete-button">Borrar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <footer>
+        <p>&copy; Universidad Iberoamericana - Sistema de Transporte</p>
+    </footer>
+</body>
