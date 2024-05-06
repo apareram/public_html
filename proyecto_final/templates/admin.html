@@ -5,27 +5,42 @@
             <button type="button">Buscar</button>
         </div>
         <div class="admin-info">
-            <span>Admin {USERNAME}</span>
+            <span>Admin {ADMIN}</span>
         </div>
     </header>
     <table class="table-users">
         <thead>
             <tr>
+                <th>id del Usuario</th>
                 <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>Contraseña</th>
+                <th>Dirección</th>
+                <th>Número</th>
+                <th>Colonia</th>
+                <th>Código Postal</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <!-- PHP generated rows -->
             <tr>
-                <td>John Doe</td>
-                <td>john.doe</td>
-                <td>johndoe@example.com</td>
+                <td>{IDUSUARIO}</td>
+                <td>{NOMBRE}</td>
+                <td>{AP_PATERNO}</td>
+                <td>{AP_MATERNO}</td>
+                <td>{USERNAME}</td>
+                <td>{EMAIL}</td>
+                <td>{PASSWORD}</td>
+                <td>{CALLE}</td>
+                <td>{NUMERO}</td>
+                <td>{COLONIA}</td>
+                <td>{ZIP_CODE}</td>
                 <td>
-                    <a href="editUser.php?id=XX" class="action-link edit-button">Editar</a>
-                    <a href="deleteUser.php?id=XX" class="action-link delete-button">Borrar</a>
+                    <a href="{EDIT_LINK}" class="action-link edit-button">Editar</a>
+                    <a href="{DELETE_LINK}" class="action-link delete-button">Borrar</a>
                 </td>
             </tr>
         </tbody>
