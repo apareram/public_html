@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Notificaciones</title>
-    <link rel="stylesheet" href="./css/estilos.css">
-    <script src="js/funciones.js"></script>
-</head>
-<body>
-    <div class="notifications-container">
+<div class="notifications-container">
+    <div class="notifications-header">
         <h2>Notificaciones</h2>
-        <ul>
-            <!-- Aquí se mostrarán las notificaciones dinámicamente -->
-            <li>Notificación 1</li>
-            <li>Notificación 2</li>
-            <li>Notificación 3</li>
-            <!-- Puedes repetir la estructura <li> para mostrar más notificaciones -->
-        </ul>
     </div>
-</body>
-</html>
+    <div class="notifications-list">
+        <!-- Aquí se mostrarán las notificaciones -->
+        <div class="notification-item">
+            <p>Notificación 1</p>
+            <span class="notification-date">Fecha: 2024-05-06</span>
+        </div>
+        <div class="notification-item">
+            <p>Notificación 2</p>
+            <span class="notification-date">Fecha: 2024-05-05</span>
+        </div>
+        <!-- Agrega más notificaciones según sea necesario -->
+    </div>
+    <div class="profile-actions">
+        <a href="notificaciones.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=notificaciones">Notificaciones</a></p>
+            <!--<img src="path_to_notifications_icon" alt="Notificaciones">-->
+        </a>
+        <a href="favoritos.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=favoritos">Favoritos</a></p>
+        </a>
+        <a href="historial.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=historial">Historial</a></p>
+        </a>
+        
+    </div>
+</div>
+
+

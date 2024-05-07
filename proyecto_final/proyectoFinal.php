@@ -41,7 +41,37 @@
                     mostrarErrorLogin($template);
                 }
             }
-        }        
+        } 
+        
+        // si se pica el boton de editar usuario desde la página de admin
+        if (isset($_POST['editUser'])) {
+            $idUsuario = $_POST['idUsuario'];  // Asegúrate de sanitizar y validar este ID antes de usarlo
+            $template->addBlockfile("CONTENIDO", "EDITUSUARIO", "editUsuario.html");
+            $template->setCurrentBlock("EDITUSUARIO");
+            $template->touchBlock("EDITUSUARIO");
+        }
+
+        // Se pica el botón de borrar usuario desde la página de admin
+        if (isset($_POST['deleteUser'])) {
+            $idUsuario = (int) $_POST['id'];  // Asegurando que el ID es un entero
+            $query = "DELETE FROM Usuarios WHERE idUsuario = ?";
+            $stmt = $mysqli->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $idUsuario);
+                $stmt->execute();
+            
+                if ($stmt->affected_rows > 0) {
+                    echo "Usuario eliminado con éxito.";
+                } else {
+                    echo "Error al eliminar el usuario.";
+                }
+                $stmt->close();
+            } else {
+                echo "Error al preparar la consulta: " . $mysqli->error;
+            }
+            cargarDashboardAdmin($template, $user, $link);
+            exit();
+        }
 
         // si se pica el boton de registrase en mensajeBienvenida.html se abrira registro.html
         if ($_GET['action'] == 'registrar') {
@@ -125,7 +155,7 @@
         if (mysqli_num_rows($result) > 0) {
             while ($line = mysqli_fetch_assoc($result)) {
                 // Configurar bloque 'USER_ROW' para cada usuario
-                $template->setCurrentBlock("USER_ROW");
+                $template->setCurrentBlock("USUARIOS");
                 $template->setVariable("IDUSUARIO", $line['idUsuario']);
                 $template->setVariable("NOMBRE", $line['nombre']);
                 $template->setVariable("AP_PATERNO", $line['ap_paterno']);
@@ -137,7 +167,7 @@
                 $template->setVariable("NUMERO", $line['numero']);
                 $template->setVariable("COLONIA", $line['colonia']);
                 $template->setVariable("ZIP_CODE", $line['zip_code']);
-                $template->parseCurrentBlock();
+                $template->parseCurrentBlock("USUARIOS");
             }
         } else {
             // Manejar caso en que no hay usuarios
@@ -147,7 +177,7 @@
         }
     
         // Finalizar y mostrar el bloque 'ADMIN'
-        $template->parseCurrentBlock();
+        $template->parseCurrentBlock("ADMIN");
     }
     
     function mostrarErrorLogin($template) {

@@ -110,6 +110,79 @@
         $template->setCurrentBlock("PERFIL");
         $template->touchBlock("PERFIL");
     }
+
+    if ($_GET['action'] == 'notificaciones') {
+        $template->addBlockfile("CONTENIDO", "NOTIFICACIONES", "notificaciones.html");
+        $template->setCurrentBlock("NOTIFICACIONES");
+        $template->touchBlock("NOTIFICACIONES");
+    }
+
+    if ($_GET['action'] == 'favoritos') {
+        $template->addBlockfile("CONTENIDO", "FAVORITOS", "favoritos.html");
+        $template->setCurrentBlock("FAVORITOS");
+        $template->touchBlock("FAVORITOS");
+    }
+
+    if ($_GET['action'] == 'historial') {
+        $template->addBlockfile("CONTENIDO", "HISTORIAL", "historial.html");
+        $template->setCurrentBlock("HISTORIAL");
+        $template->touchBlock("HISTORIAL");
+    }
+
+    if (isset($_POST['terceroBot1'])) {
+
+        $template->addBlockfile("CONTENIDO", "PERFILTERCERO", "perfiltercero.html");
+        $template->setCurrentBlock("PERFILTERCERO");
+        $template->touchBlock("PERFILTERCERO");
+
+    }
+
+    if (isset($_POST['terceroBot2'])) {
+
+        $template->addBlockfile("CONTENIDO", "PERFILTERCERO", "perfiltercero.html");
+        $template->setCurrentBlock("PERFILTERCERO");
+        $template->touchBlock("PERFILTERCERO");
+
+    }
+
+    if (isset($_POST['pingBot'])) {
+        // // Realizar la conexión a la base de datos
+        // $link = mysqli_connect($cfgServer['host'], $cfgServer['user'], $cfgServer['password']) or die('Could not connect: ' . mysqli_error($link));
+        // mysqli_select_db($link, $cfgServer['dbname']) or die("Could not select database");
+    
+        // Obtener idUsuario del usuario actual
+        $query_usuario = "SELECT idUsuario FROM Usuarios WHERE username = '$username'";
+        $result_usuario = mysqli_query($link, $query_usuario);
+        $row_usuario = mysqli_fetch_assoc($result_usuario);
+        $idUsuario = $row_usuario['idUsuario'];
+    
+        // Obtener idUsuario del remitente del ping
+        $query_remitente = "SELECT idUsuario FROM Usuarios WHERE username = '$usernameremitente'";
+        $result_remitente = mysqli_query($link, $query_remitente);
+        $row_remitente = mysqli_fetch_assoc($result_remitente);
+        $idRemitente = $row_remitente['idUsuario'];
+    
+        // Insertar notificación en la tabla Notificaciones
+        $mensaje = "Te ha enviado un ping";
+        $query_insert = "INSERT INTO Notificaciones (idUsuario, idRemitente, mensaje) VALUES ('$idUsuario', '$idRemitente', '$mensaje')";
+        if (mysqli_query($link, $query_insert)) {
+            // Notificación insertada exitosamente
+            echo "Notificación enviada exitosamente.";
+        } else {
+            // Error al insertar la notificación
+            echo "Error al enviar la notificación: " . mysqli_error($link);
+        }
+    
+        // // Cerrar la conexión a la base de datos
+        // mysqli_close($link);
+    
+        // Añadir el bloque del template
+        $template->addBlockfile("CONTENIDO", "PERFILTERCERO", "perfiltercero.html");
+        $template->setCurrentBlock("PERFILTERCERO");
+        $template->touchBlock("PERFILTERCERO");
+    }
+
+    
     // Cargar los nuevos templates
 
     // Mostrar la plantilla final con las modificaciones realizadas

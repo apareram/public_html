@@ -26,6 +26,7 @@
             </tr>
         </thead>
         <tbody>
+            <!-- BEGIN USUARIOS -->
             <tr>
                 <td>{IDUSUARIO}</td>
                 <td>{NOMBRE}</td>
@@ -39,13 +40,19 @@
                 <td>{COLONIA}</td>
                 <td>{ZIP_CODE}</td>
                 <td>
-                    <a href="{EDIT_LINK}" class="action-link edit-button">Editar</a>
-                    <a href="{DELETE_LINK}" class="action-link delete-button">Borrar</a>
+                    <!-- Formulario para editar -->
+                    <form action="editUser.php" method="post">
+                        <input type="hidden" name="id" value="{IDUSUARIO}">
+                        <button type="submit" name="editUser">Editar</button>
+                    </form>
+                    <!-- Formulario para borrar -->
+                    <form action="deleteUser.php" method="post" onsubmit="return confirm('¿Estás seguro de querer borrar este usuario?');">
+                        <input type="hidden" name="id" value="{IDUSUARIO}">
+                        <button type="submit" name="deleteUser">Borrar</button>
+                    </form>
                 </td>
             </tr>
+            <!-- END USUARIOS -->
         </tbody>
     </table>
-    <footer>
-        <p>&copy; Universidad Iberoamericana - Sistema de Transporte</p>
-    </footer>
 </body>

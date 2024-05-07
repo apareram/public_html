@@ -1,13 +1,15 @@
 <form action="proyectoFinal.php" method="post">
     <input type="hidden" name="action" value="editar">
-    <input type="hidden" name="usuarioId" value="ID_USUARIO"> <!-- Este campo oculto deberá contener el ID del usuario a editar -->
-    <input type="text" name="nombre" placeholder="Nombre" value="NOMBRE_USUARIO" required>
-    <input type="text" name="apellido" placeholder="Apellido" value="APELLIDO_USUARIO" required>
-    <input type="email" name="email" placeholder="Correo electrónico" value="EMAIL_USUARIO" required>
-    <input type="text" name="username" placeholder="Nombre de usuario" value="USERNAME_USUARIO" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <!-- Añadir más campos según sea necesario -->
-    <button type="submit">Actualizar</button>
+    <input type="hidden" name="idUsuario" value="{ID_USUARIO}">
+    <input type="text" name="nombre" value="{NOMBRE_USUARIO}" required>
+    <input type="text" name="ap_paterno" value="{APELLIDO_PATERNO}" required>
+    <input type="text" name="ap_materno" value="{APELLIDO_MATERNO}" required>
+    <input type="text" name="username" value="{USERNAME_USUARIO}" required>
+    <input type="email" name="email" value="{EMAIL_USUARIO}" required>
+    <input type="password" name="password" value="{CONTRASENA_USUARIO}" required>
+    <input type="text" name="calle" value="{CALLE_USUARIO}" required>
+    <input type="text" name="numero" value="{NUMERO_USUARIO}" required>
+    <input type="text" name="colonia" value="{COLONIA_USUARIO}" required>
+    <input type="text" name="zip_code" value="{ZIP_CODE_USUARIO}" required>
+    <button type="submit" name="actualizarUsurario">Actualizar</button>
 </form>
-
-<script src="js/editarUsuario.js"></script>
