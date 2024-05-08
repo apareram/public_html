@@ -118,10 +118,44 @@
     }
 
     if ($_GET['action'] == 'favoritos') {
-        $template->addBlockfile("CONTENIDO", "FAVORITOS", "favoritos.html");
+        
+
+        // Obtener el idUsuario del usuario actual usando $username
+        $query_id_usuario = "SELECT idUsuario FROM Usuarios WHERE username = '$username'";
+        $result_id_usuario = mysqli_query($link, $query_id_usuario);
+        $row_id_usuario = mysqli_fetch_assoc($result_id_usuario);
+        $idUsuario = $row_id_usuario['idUsuario'];
+    
+        // Obtener los usuarios favoritos del usuario actual
+        $query_favoritos = "SELECT * FROM Favoritos WHERE idUsuario = $idUsuario";
+        $result_favoritos = mysqli_query($link, $query_favoritos);
+    
+        // Inicializar una cadena para almacenar el contenido de los usuarios favoritos
+        $favoritos_content = '';
+    
+        // Iterar a través de los resultados y construir el contenido de los usuarios favoritos
+        while ($row_favoritos = mysqli_fetch_assoc($result_favoritos)) {
+            $idUsuarioFavorito = $row_favoritos['idUsuarioFavorito'];
+    
+            // Obtener los datos del usuario favorito
+            $query_usuario_favorito = "SELECT * FROM Usuarios WHERE idUsuario = $idUsuarioFavorito";
+            $result_usuario_favorito = mysqli_query($link, $query_usuario_favorito);
+            $row_usuario_favorito = mysqli_fetch_assoc($result_usuario_favorito);
+    
+            // Construir el contenido de cada usuario favorito
+            $favoritos_content .= '<div class="favorite-user">';
+            $favoritos_content .= '<img src="path_to_user_picture" alt="Foto de Perfil">';
+            $favoritos_content .= '<h3>' . $row_usuario_favorito['nombre'] . '</h3>';
+            $favoritos_content .= '<button type="submit" name="terceroBot" value="' . $idUsuarioFavorito . '">Ver perfil</button>';
+            $favoritos_content .= '</div>';
+        }
+    
+        // Asignar el contenido de los usuarios favoritos a la plantilla
         $template->setCurrentBlock("FAVORITOS");
-        $template->touchBlock("FAVORITOS");
+        $template->setVariable("FAVORITOS_LIST", $favoritos_content);
+        $template->parseCurrentBlock("FAVORITOS");
     }
+    
 
     if ($_GET['action'] == 'historial') {
         $template->addBlockfile("CONTENIDO", "HISTORIAL", "historial.html");
@@ -181,6 +215,50 @@
         $template->setCurrentBlock("PERFILTERCERO");
         $template->touchBlock("PERFILTERCERO");
     }
+
+     if (isset($_POST['regBot'])) {
+            // Validar si el usuario ya existe
+            $username = mysqli_real_escape_string($link, $_POST['username']);
+            $query_check_user = "SELECT username FROM Usuarios WHERE username = '$username'";
+            $result_check_user = mysqli_query($link, $query_check_user);
+
+            if (mysqli_num_rows($result_check_user) > 0) {
+                $template->addBlockfile("CONTENIDO", "MENSAJE_ERROR", "error.html");
+                $template->setVariable("MENSAJE_ERROR", "El nombre de usuario ya está en uso. Por favor, ingresa otro.");
+                $template->setCurrentBlock("MENSAJE_ERROR");
+                $template->parseCurrentBlock("MENSAJE_ERROR");
+            } else {
+                // Insertar nuevo usuario en la base de datos
+                $nombre = mysqli_real_escape_string($link, $_POST['nombre']);
+                $ap_paterno = mysqli_real_escape_string($link, $_POST['ap_paterno']);
+                $ap_materno = mysqli_real_escape_string($link, $_POST['ap_materno']);
+                $email = mysqli_real_escape_string($link, $_POST['email']);
+                $contrasena = $_POST['contrasena'];
+                $calle = mysqli_real_escape_string($link, $_POST['calle']);
+                $numero = mysqli_real_escape_string($link, $_POST['numero']);
+                $numero = $_POST['numero'];
+                if ($numero === false) {
+                    // Manejar el error, por ejemplo enviando un mensaje al usuario
+                    echo "El número de exterior proporcionado no es válido.";
+                    return; // Salir del script si hay un error
+                }
+                $colonia = mysqli_real_escape_string($link, $_POST['colonia']);
+                $zip_code = $_POST['zip_code'];
+                
+                $query_insert_user = "INSERT INTO Usuarios (nombre, ap_paterno, ap_materno, username, email, contrasena, calle, numero, colonia, zip_code) VALUES ('$nombre', '$ap_paterno', '$ap_materno', '$username', '$email', '$contrasena', '$calle', '$numero', '$colonia', '$zip_code')";
+                if (!mysqli_query($link, $query_insert_user)) {
+                    echo "Error de inserción: " . mysqli_error($link);
+                } else {
+                    echo "Usuario registrado exitosamente.";
+                }
+
+                $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
+                $template->setCurrentBlock("DASHBOARD");
+                $template->setVariable("USERNAME", $username);
+                //$template->setVariable("NOTIFICACIONES", obtenerNumeroNotificaciones($username));
+                $template->parseCurrentBlock("DASHBOARD");
+            }
+        }
 
     
     // Cargar los nuevos templates
