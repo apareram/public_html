@@ -102,15 +102,18 @@
 
         $query = "UPDATE Usuarios SET nombre=?, ap_paterno=?, ap_materno=?, username=?, email=?, contrasena=?, calle=?, numero=?, colonia=?, zip_code=? WHERE idUsuario=?";
         $stmt = mysqli_prepare($link, $query);
-        mysqli_stmt_bind_param($stmt, "ssssssssssi", $nombre, $ap_paterno, $ap_materno, $username, $email, $contrasena, $calle, $numero, $colonia, $zip_code, $idUsuario);
-        mysqli_stmt_execute($stmt);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ssssssssssi", $nombre, $ap_paterno, $ap_materno, $username, $email, $contrasena, $calle, $numero, $colonia, $zip_code, $idUsuario);
+            mysqli_stmt_execute($stmt);
 
-        if (mysqli_stmt_affected_rows($stmt) > 0) {
-            echo "Usuario actualizado con éxito.";
-            // Podrías redirigir aquí o recargar el panel de administración como mencionaste
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                echo "Usuario actualizado con éxito.";
+            } else {
+                echo "Error al actualizar usuario: " . mysqli_error($link);
+            }
+            mysqli_stmt_close($stmt);
         } else {
-            echo "Error al actualizar usuario: " . mysqli_error($link);
+            echo "Error al preparar la consulta: " . mysqli_error($link);
         }
-        mysqli_stmt_close($stmt);
     }
 ?>
