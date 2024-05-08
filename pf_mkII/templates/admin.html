@@ -1,0 +1,58 @@
+<body>
+    <header>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar usuario...">
+            <button type="button">Buscar</button>
+        </div>
+        <div class="admin-info">
+            <span>Admin {ADMIN}</span>
+        </div>
+    </header>
+    <table class="table-users">
+        <thead>
+            <tr>
+                <th>id del Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Contraseña</th>
+                <th>Dirección</th>
+                <th>Número</th>
+                <th>Colonia</th>
+                <th>Código Postal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN USUARIOS -->
+            <tr>
+                <td>{IDUSUARIO}</td>
+                <td>{NOMBRE}</td>
+                <td>{AP_PATERNO}</td>
+                <td>{AP_MATERNO}</td>
+                <td>{USERNAME}</td>
+                <td>{EMAIL}</td>
+                <td>{PASSWORD}</td>
+                <td>{CALLE}</td>
+                <td>{NUMERO}</td>
+                <td>{COLONIA}</td>
+                <td>{ZIP_CODE}</td>
+                <td>
+                    <!-- Formulario para editar -->
+                    <form action="editUser.php" method="post">
+                        <input type="hidden" name="id" value="{IDUSUARIO}">
+                        <button type="submit" name="editUser">Editar</button>
+                    </form>
+                    <!-- Formulario para borrar -->
+                    <form action="deleteUser.php" method="post" onsubmit="return confirm('¿Estás seguro de querer borrar este usuario?');">
+                        <input type="hidden" name="id" value="{IDUSUARIO}">
+                        <button type="submit" name="deleteUser">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+            <!-- END USUARIOS -->
+        </tbody>
+    </table>
+</body>

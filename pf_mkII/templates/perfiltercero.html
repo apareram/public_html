@@ -1,0 +1,35 @@
+<div class="favorite-profile-container">
+    <form action="proyectoFinal2.php?action=perfiltercero.html" method="post">
+    <div class="favorite-profile-header">
+        <h2>Perfil del Usuario Favorito</h2>
+    </div>
+    <div class="favorite-profile-info">
+        <div class="favorite-profile-picture">
+            <img src="path_to_user_picture" alt="Foto de Perfil">
+        </div>
+        <div class="favorite-profile-details">
+            <h3>Nombre de Usuario</h3>
+            <!-- Agrega más detalles del perfil del usuario -->
+        </div>
+    </div>
+    <div class="favorite-profile-actions">
+        <!-- Agrega acciones adicionales según sea necesario -->
+        <button type="submit" name="pingBot" value="clicked" onclick="alert('Ping enviado')">Mandar Ping</button>
+        <button onclick="window.location.href='eliminarFavorito.php'">Eliminar de Favoritos</button>
+    </div>
+    <div class="profile-actions">
+        <a href="notificaciones.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=notificaciones">Notificaciones</a></p>
+            <!--<img src="path_to_notifications_icon" alt="Notificaciones">-->
+        </a>
+        <a href="favoritos.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=favoritos">Favoritos</a></p>
+        </a>
+        <a href="historial.html" class="action-link">
+            <p><a href="proyectoFinal2.php?action=historial">Historial</a></p>
+        </a>
+        
+    </div>
+
+    </form>
+</div>

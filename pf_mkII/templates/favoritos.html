@@ -1,0 +1,38 @@
+<div class="favorites-container">
+    <form action="router.php?action=perfiltercero.html" method="post">
+
+        <div class="favorites-header">
+            <h2>Usuarios Favoritos</h2>
+        </div>
+        <div class="favorites-list">
+            <!-- Aquí se mostrarán los usuarios favoritos -->
+            <div class="favorite-user">
+                <img src="path_to_user_picture" alt="Foto de Perfil">
+                <h3>Nombre de Usuario</h3>
+                <!--<button onclick="window.location.href='perfil_usuario.html'">Ver Perfil</button>-->
+                <button type="submit" name="terceroBot1" value="clicked">Ver perfil</button>
+            </div>
+            <div class="favorite-user">
+                <img src="path_to_user_picture" alt="Foto de Perfil">
+                <h3>Nombre de Usuario</h3>
+                <!--<button onclick="window.location.href='perfiltercero.html'">Ver Perfil</button>-->
+                <button type="submit" name="terceroBot2" value="clicked" >Ver perfil</button>
+                
+            </div>
+            <!-- Agrega más usuarios favoritos según sea necesario -->
+        </div>
+        <div class="profile-actions">
+            <a href="notificaciones.html" class="action-link">
+                <p><a href="router.php?action=notificaciones">Notificaciones</a></p>
+                <!--<img src="path_to_notifications_icon" alt="Notificaciones">-->
+            </a>
+            <a href="favoritos.html" class="action-link">
+                <p><a href="router.php?action=favoritos">Favoritos</a></p>
+            </a>
+            <a href="historial.html" class="action-link">
+                <p><a href="router.php?action=historial">Historial</a></p>
+            </a>
+            
+        </div>
+    </form>
+</div>

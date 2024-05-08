@@ -1,0 +1,237 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+/* Cabecera común */
+header {
+    background: #ba0707;
+    color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 960px;
+}
+
+/* Contenedor principal para centralización de contenido */
+.container, .table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 960px;
+    width: 100%;
+}
+
+/* Inputs y botones estandarizados */
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color: #ba0707;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #841717;
+}
+
+.search-bar, .admin-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Asegura que estos elementos ocupen el ancho completo */
+}
+
+.search-bar {
+    margin-top: 10px; /* Espacio entre el header y la barra de búsqueda */
+}
+
+/* Estilización del input y botón de búsqueda */
+.search-bar input[type="text"], .search-bar button {
+    padding: 10px;
+    margin: 0 5px; /* Margen entre el input y el botón */
+    flex-grow: 1; /* Permite que ambos crezcan equitativamente */
+}
+
+.search-bar button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #003d82;
+}
+
+
+/* Contenedor de la tabla para gestionar el overflow */
+.table-container {
+    width: 95%; /* Un poco menos que el ancho total para dar espacio a los bordes */
+    overflow-x: auto; /* Permite el desplazamiento horizontal si la tabla es muy ancha */
+    margin-top: 20px; /* Espacio después de la barra de búsqueda */
+}
+
+.table-users {
+    width: 100%; /* Asegura que la tabla utiliza el espacio disponible */
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.table-users th, .table-users td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.table-users th {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para los botones de acción en la tabla */
+.action-link {
+    padding: 5px 10px;
+    color: white;
+    background-color: #4CAF50; /* Verde para editar */
+    border-radius: 3px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.action-link.edit-button {
+    background-color: #4CAF50; /* Verde */
+}
+
+.action-link.delete-button {
+    background-color: #f44336; /* Rojo para borrar */
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Estilos para el perfil del usuario en el dashboard */
+.user-profile {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    margin-bottom: 20px;
+}
+
+.hello-user {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.profile-circle {
+    flex-shrink: 0;
+}
+
+.profile-circle img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ba0707;
+}
+
+.notifications {
+    position: relative;
+    padding-left: 15px;
+}
+
+.notifications span {
+    background-color: #ba0707;
+    padding: 5px 10px;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 0.8em;
+}
+
+/* Estilos para la barra de búsqueda */
+.search-bar {
+    width: 95%;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Estilos para la página de perfil del usuario */
+.profile-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #ba0707;
+}
+
+.profile-info h2 {
+    margin-top: 15px;
+    color: #333;
+}
+
+.profile-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.profile-actions .action-link {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.profile-actions .action-link:hover {
+    background-color: #367c2b;
+}
+
+.action-link p {
+    margin: 0;
+}
