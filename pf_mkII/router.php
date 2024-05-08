@@ -24,15 +24,16 @@
                 include 'deleteUser.php';
                 break;
             case 'perfil':
-                include 'deleteUser.php';
+                include 'perfil.php';
                 break;
             default:
-                // Cargar página por defecto o manejar acción desconocida
-                $template->addBlockfile("CONTENIDO", "WELCOME", "mensajeBienvenida.html");
-                $template->setCurrentBlock("WELCOME");
-                $template->touchBlock("WELCOME");
+                // Mostrar mensaje de acción desconocida para depuración
+                $template->addBlockfile("CONTENIDO", "UNKNOWN_ACTION", "unknownAction.html");
+                $template->setCurrentBlock("UNKNOWN_ACTION");
+                $template->setVariable("MESSAGE", "Acción desconocida: $action");
+                $template->parseCurrentBlock("UNKNOWN_ACTION");
                 break;
-        }
+        }        
     } else {
         // Cargar la página principal si no se está intentando iniciar sesión o registrar
         $template->addBlockfile("CONTENIDO", "WELCOME", "mensajeBienvenida.html");

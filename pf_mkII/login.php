@@ -14,8 +14,6 @@
         // Intentar como usuario
         $uQuery = "SELECT username FROM Usuarios WHERE username = '$user' AND contrasena = '$pass'";
         $uResult = mysqli_query($link, $uQuery);
-        var_dump(mysqli_fetch_assoc($uResult)); 
-        print($uQuery);
     
         // Intentar como administrador si no se encontró como usuario
         if (mysqli_num_rows($uResult) > 0) {
@@ -26,8 +24,7 @@
         } else {
             $aQuery = "SELECT username FROM Administradores WHERE username = '$user' AND contrasena = '$pass'";
             $aResult = mysqli_query($link, $aQuery);
-            var_dump(mysqli_fetch_assoc($aResult)); 
-            print($aQuery);
+
             if (mysqli_num_rows($aResult) > 0) {
                 $query = "SELECT idUsuario, nombre, ap_paterno, ap_materno, username, email, contrasena, calle, numero, colonia, zip_code FROM Usuarios";
                 $result = mysqli_query($link, $query) or die("Query failed");
