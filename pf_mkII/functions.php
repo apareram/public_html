@@ -54,4 +54,63 @@
         $template->setCurrentBlock("MENSAJE_ERROR");
         $template->parseCurrentBlock("MENSAJE_ERROR");
     }
+
+    function cargarDatosUsuarios($template, $link) {
+        $idUsuario = mysqli_real_escape_string($link, $_POST['id']);
+        $query = "SELECT * FROM Usuarios WHERE idUsuario = ?";
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, "i", $idUsuario);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $userData = mysqli_fetch_assoc($result);
+
+        if ($userData) {
+            $template->addBlockfile("CONTENIDO", "EDIT", "editUsuario.html");
+            $template->setCurrentBlock("EDIT");
+            $template->setVariable(array(
+                "ID_USUARIO" => $userData['idUsuario'],
+                "NOMBRE_USUARIO" => $userData['nombre'],
+                "APELLIDO_PATERNO" => $userData['ap_paterno'],
+                "APELLIDO_MATERNO" => $userData['ap_materno'],
+                "USERNAME_USUARIO" => $userData['username'],
+                "EMAIL_USUARIO" => $userData['email'],
+                "CONTRASENA_USUARIO" => $userData['contrasena'],
+                "CALLE_USUARIO" => $userData['calle'],
+                "NUMERO_USUARIO" => $userData['numero'],
+                "COLONIA_USUARIO" => $userData['colonia'],
+                "ZIP_CODE_USUARIO" => $userData['zip_code'],
+            ));
+            $template->parseCurrentBlock("EDIT");
+        } else {
+            echo "No se encontraron datos para el usuario.";
+        }
+        mysqli_stmt_close($stmt);
+    }
+
+    function actualizarDatosUsuario($template, $link) {
+        $idUsuario = $_POST['idUsuario'];
+        $nombre = mysqli_real_escape_string($link, $_POST['nombre']);
+        $ap_paterno = mysqli_real_escape_string($link, $_POST['ap_paterno']);
+        $ap_materno = mysqli_real_escape_string($link, $_POST['ap_materno']);
+        $username = mysqli_real_escape_string($link, $_POST['username']);
+        $email = mysqli_real_escape_string($link, $_POST['email']);
+        $contrasena = mysqli_real_escape_string($link, $_POST['contrasena']);
+        $calle = mysqli_real_escape_string($link, $_POST['calle']);
+        $numero = mysqli_real_escape_string($link, $_POST['numero']);
+        $colonia = mysqli_real_escape_string($link, $_POST['colonia']);
+        $zip_code = mysqli_real_escape_string($link, $_POST['zip_code']);
+
+        $query = "UPDATE Usuarios SET nombre=?, ap_paterno=?, ap_materno=?, username=?, email=?, contrasena=?, calle=?, numero=?, colonia=?, zip_code=? WHERE idUsuario=?";
+        $stmt = mysqli_prepare($link, $query);
+        mysqli_stmt_bind_param($stmt, "ssssssssssi", $nombre, $ap_paterno, $ap_materno, $username, $email, $contrasena, $calle, $numero, $colonia, $zip_code, $idUsuario);
+        mysqli_stmt_execute($stmt);
+
+        if (mysqli_stmt_affected_rows($stmt) > 0) {
+            echo "Usuario actualizado con éxito.";
+            // Podrías redirigir aquí o recargar el panel de administración como mencionaste
+        } else {
+            echo "Error al actualizar usuario: " . mysqli_error($link);
+        }
+        mysqli_stmt_close($stmt);
+    }
 ?>

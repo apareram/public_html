@@ -121,17 +121,19 @@
         
 
         // Obtener el idUsuario del usuario actual usando $username
-        $query_id_usuario = "SELECT idUsuario FROM Usuarios WHERE username = '$username'";
+        $query_id_usuario = "SELECT idUsuario FROM Usuarios WHERE username = 'bugs.bunny'";
+        // print "Hello, $username!";
         $result_id_usuario = mysqli_query($link, $query_id_usuario);
         $row_id_usuario = mysqli_fetch_assoc($result_id_usuario);
         $idUsuario = $row_id_usuario['idUsuario'];
+        print "Hello, $idUsuario!";
     
         // Obtener los usuarios favoritos del usuario actual
-        $query_favoritos = "SELECT * FROM Favoritos WHERE idUsuario = $idUsuario";
+        $query_favoritos = "SELECT * FROM Favoritos WHERE idUsuario = $idUsuario LIMIT 1";
         $result_favoritos = mysqli_query($link, $query_favoritos);
     
         // Inicializar una cadena para almacenar el contenido de los usuarios favoritos
-        $favoritos_content = '';
+        // $favoritos_content = '';
     
         // Iterar a través de los resultados y construir el contenido de los usuarios favoritos
         while ($row_favoritos = mysqli_fetch_assoc($result_favoritos)) {
@@ -142,18 +144,75 @@
             $result_usuario_favorito = mysqli_query($link, $query_usuario_favorito);
             $row_usuario_favorito = mysqli_fetch_assoc($result_usuario_favorito);
     
-            // Construir el contenido de cada usuario favorito
-            $favoritos_content .= '<div class="favorite-user">';
-            $favoritos_content .= '<img src="path_to_user_picture" alt="Foto de Perfil">';
-            $favoritos_content .= '<h3>' . $row_usuario_favorito['nombre'] . '</h3>';
-            $favoritos_content .= '<button type="submit" name="terceroBot" value="' . $idUsuarioFavorito . '">Ver perfil</button>';
-            $favoritos_content .= '</div>';
+            // // Construir el contenido de cada usuario favorito
+            // $favoritos_content .= '<div class="favorite-user">';
+            // $favoritos_content .= '<img src="path_to_user_picture" alt="Foto de Perfil">';
+            // $favoritos_content .= '<h3>' . $row_usuario_favorito['nombre'] . '</h3>';
+            // $favoritos_content .= '<button type="submit" name="terceroBot" value="' . $idUsuarioFavorito . '">Ver perfil</button>';
+            // $favoritos_content .= '</div>';
         }
+
+        //$nombrefavorito = $row_usuario_favorito['nombre']
     
         // Asignar el contenido de los usuarios favoritos a la plantilla
+        // $template->setCurrentBlock("FAVORITOS");
+        // $template->setVariable("FAVORITOS_LIST", $favoritos_content);
+        // $template->parseCurrentBlock("FAVORITOS");
+
+    
+
+        // // Obtener el idUsuario del usuario actual usando $username
+        // $query_id_usuario = "SELECT idUsuario FROM Usuarios WHERE username = '$username'";
+        // $result_id_usuario = mysqli_query($link, $query_id_usuario);
+        // $row_id_usuario = mysqli_fetch_assoc($result_id_usuario);
+        // $idUsuario = $row_id_usuario['idUsuario'];
+
+        // // Obtener los usuarios favoritos del usuario actual
+        // $query_favoritos = "SELECT * FROM Favoritos WHERE idUsuario = $idUsuario LIMIT 1";
+        // $result_favoritos = mysqli_query($link, $query_favoritos);
+
+        // // Inicializar una cadena para almacenar el contenido de los usuarios favoritos
+        // $favoritos_content = '';
+    
+        // // Iterar a través de los resultados y construir el contenido de los usuarios favoritos
+        // while ($row_favoritos = mysqli_fetch_assoc($result_favoritos)) {
+        //     $idUsuarioFavorito = $row_favoritos['idUsuarioFavorito'];
+    
+        //     // Obtener los datos del usuario favorito
+        //     $query_usuario_favorito = "SELECT * FROM Usuarios WHERE idUsuario = $idUsuarioFavorito";
+        //     $result_usuario_favorito = mysqli_query($link, $query_usuario_favorito);
+        //     $row_usuario_favorito = mysqli_fetch_assoc($result_usuario_favorito);
+    
+         //     // Construir el contenido de cada usuario favorito
+         //     $favoritos_content .= '<div class="favorite-user">';
+         //     $favoritos_content .= '<img src="path_to_user_picture" alt="Foto de Perfil">';
+         //     $favoritos_content .= '<h3>' . $row_usuario_favorito['nombre'] . '</h3>';
+         //     $favoritos_content .= '<button type="submit" name="terceroBot" value="' . $idUsuarioFavorito . '">Ver perfil</button>';
+         //     $favoritos_content .= '</div>';
+            
+        // }
+            
+        
+            // // Intentar como usuario
+            // $uQuery = "SELECT username FROM Usuarios WHERE username = '$user' AND contrasena = '$pass'";
+            // $uResult = mysqli_query($link, $uQuery);
+        
+            // // Intentar como administrador si no se encontró como usuario
+            // if (mysqli_num_rows($uResult) > 0) {
+            //     cargarDashboardUsuario($template, $user);
+            // } else {
+            //     $aQuery = "SELECT username FROM Administradores WHERE username = '$user' AND contrasena = '$pass'";
+            //     $aResult = mysqli_query($link, $aQuery);
+            //     if (mysqli_num_rows($aResult) > 0) {
+            //         cargarDashboardAdmin($template, $user, $link);
+            //     } else {
+            //         mostrarErrorLogin($template);
+            //     }
+            // }
+
+        $template->addBlockfile("CONTENIDO", "FAVORITOS", "favoritos.html");
         $template->setCurrentBlock("FAVORITOS");
-        $template->setVariable("FAVORITOS_LIST", $favoritos_content);
-        $template->parseCurrentBlock("FAVORITOS");
+        $template->touchBlock("FAVORITOS");
     }
     
 
@@ -258,6 +317,13 @@
                 //$template->setVariable("NOTIFICACIONES", obtenerNumeroNotificaciones($username));
                 $template->parseCurrentBlock("DASHBOARD");
             }
+        }
+
+        function cargarFavsUsuario($template, $userfav) {
+            $template->addBlockfile("CONTENIDO", "FAVORITOS", "favoritos.html");
+            $template->setCurrentBlock("FAVORITOS");
+            $template->setVariable("USERNAMEFAVORITO", $userfav);
+            $template->parseCurrentBlock("FAVORITOS");
         }
 
     

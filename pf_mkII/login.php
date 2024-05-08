@@ -1,75 +1,42 @@
 <?php
-    require_once 'database.php';
-    require_once "HTML/Template/ITX.php";
+session_start(); // Asegúrate de iniciar la sesión al principio
 
-    $link = getDatabaseConnection();
-    $template = new HTML_Template_ITX('./templates');
-    $template->loadTemplatefile("principal.html", true, true);
+require_once 'database.php';
+require_once "HTML/Template/ITX.php";
 
-    // Verificar si se está intentando iniciar sesión
-    if (isset($_POST['loginBot'])) {
-        $user = mysqli_real_escape_string($link, $_POST['username']);
-        $pass = mysqli_real_escape_string($link, $_POST['password']);
-    
-        // Intentar como usuario
-        $uQuery = "SELECT username FROM Usuarios WHERE username = '$user' AND contrasena = '$pass'";
-        $uResult = mysqli_query($link, $uQuery);
-    
-        // Intentar como administrador si no se encontró como usuario
-        if (mysqli_num_rows($uResult) > 0) {
-            $template->addBlockfile("CONTENIDO", "DASHBOARD", "dashboard.html");
-            $template->setCurrentBlock("DASHBOARD");
-            $template->setVariable("USERNAME", $user);
-            $template->parseCurrentBlock("DASHBOARD");
+$link = getDatabaseConnection();
+$template = new HTML_Template_ITX('./templates');
+$template->loadTemplatefile("principal.html", true, true);
+
+// Verificar si se está intentando iniciar sesión
+if (isset($_POST['loginBot'])) {
+    $user = mysqli_real_escape_string($link, $_POST['username']);
+    $pass = mysqli_real_escape_string($link, $_POST['password']);
+
+    // Intentar como usuario
+    $uQuery = "SELECT username FROM Usuarios WHERE username = '$user' AND contrasena = '$pass'";
+    $uResult = mysqli_query($link, $uQuery);
+
+    // Intentar como administrador si no se encontró como usuario
+    if (mysqli_num_rows($uResult) > 0) {
+        $_SESSION['username'] = $user; // Guarda el nombre de usuario en la sesión
+        $_SESSION['is_admin'] = false; // No es administrador
+        cargarDashboardUsuario($template, $user);
+    } else {
+        $aQuery = "SELECT username FROM Administradores WHERE username = '$user' AND contrasena = '$pass'";
+        $aResult = mysqli_query($link, $aQuery);
+        if (mysqli_num_rows($aResult) > 0) {
+            $_SESSION['username'] = $user; // Guarda el nombre de usuario en la sesión
+            $_SESSION['is_admin'] = true; // Es administrador
+            cargarDashboardAdmin($template, $user, $link);
         } else {
-            $aQuery = "SELECT username FROM Administradores WHERE username = '$user' AND contrasena = '$pass'";
-            $aResult = mysqli_query($link, $aQuery);
-
-            if (mysqli_num_rows($aResult) > 0) {
-                $query = "SELECT idUsuario, nombre, ap_paterno, ap_materno, username, email, contrasena, calle, numero, colonia, zip_code FROM Usuarios";
-                $result = mysqli_query($link, $query) or die("Query failed");
-            
-                // Inicializa el bloque 'ADMIN' y establece variables comunes
-                $template->addBlockfile("CONTENIDO", "ADMIN", "admin.html");
-                $template->setCurrentBlock("ADMIN");
-                $template->setVariable("ADMIN", $user);
-            
-                if (mysqli_num_rows($result) > 0) {
-                    while ($line = mysqli_fetch_assoc($result)) {
-                        // Configurar bloque 'USER_ROW' para cada usuario
-                        $template->setCurrentBlock("USUARIOS");
-                        $template->setVariable("IDUSUARIO", $line['idUsuario']);
-                        $template->setVariable("NOMBRE", $line['nombre']);
-                        $template->setVariable("AP_PATERNO", $line['ap_paterno']);
-                        $template->setVariable("AP_MATERNO", $line['ap_materno']);
-                        $template->setVariable("USERNAME", $line['username']);
-                        $template->setVariable("EMAIL", $line['email']);
-                        $template->setVariable("PASSWORD", $line['contrasena']);
-                        $template->setVariable("CALLE", $line['calle']);
-                        $template->setVariable("NUMERO", $line['numero']);
-                        $template->setVariable("COLONIA", $line['colonia']);
-                        $template->setVariable("ZIP_CODE", $line['zip_code']);
-                        $template->parseCurrentBlock("USUARIOS");
-                    }
-                } else {
-                    // Manejar caso en que no hay usuarios
-                    $template->setCurrentBlock("NO_USERS");
-                    $template->setVariable("MESSAGE", "No hay usuarios registrados.");
-                    $template->parseCurrentBlock();
-                }
-                // Finalizar y mostrar el bloque 'ADMIN'
-                $template->parseCurrentBlock("ADMIN");
-            } else {
-                $template->addBlockfile("CONTENIDO", "MENSAJE_ERROR", "error.html");
-                $template->setVariable("MENSAJE_ERROR", "Nombre de usuario o contraseña incorrecta, intenta de nuevo.");
-                $template->setCurrentBlock("MENSAJE_ERROR");
-                $template->parseCurrentBlock("MENSAJE_ERROR");
-            }
+            mostrarErrorLogin($template);
         }
-    }else {
-        // Mostrar la plantilla de inicio de sesión si no se ha enviado el formulario
-        $template->addBlockfile("CONTENIDO", "LOGIN", "login.html");
-        $template->setCurrentBlock("LOGIN");
-        $template->touchBlock("LOGIN");
     }
+} else {
+    // Mostrar la plantilla de inicio de sesión si no se ha enviado el formulario
+    $template->addBlockfile("CONTENIDO", "LOGIN", "login.html");
+    $template->setCurrentBlock("LOGIN");
+    $template->touchBlock("LOGIN");
+}
 ?>

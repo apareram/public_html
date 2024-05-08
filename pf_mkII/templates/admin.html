@@ -41,12 +41,14 @@
                 <td>{ZIP_CODE}</td>
                 <td>
                     <!-- Formulario para editar -->
-                    <form action="editUser.php" method="post">
+                    <form action="router.php" method="post">
+                        <input type="hidden" name="action" value="editUser">
                         <input type="hidden" name="id" value="{IDUSUARIO}">
                         <button type="submit" name="editUser">Editar</button>
                     </form>
                     <!-- Formulario para borrar -->
-                    <form action="deleteUser.php" method="post" onsubmit="return confirm('¿Estás seguro de querer borrar este usuario?');">
+                    <form action="router.php" method="post" onsubmit="return confirm('¿Estás seguro de querer borrar este usuario?');">
+                        <input type="hidden" name="action" value="deleteUser">
                         <input type="hidden" name="id" value="{IDUSUARIO}">
                         <button type="submit" name="deleteUser">Borrar</button>
                     </form>

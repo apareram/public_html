@@ -1,25 +1,26 @@
 <?php
-    if (isset($_POST['submit'])) {
-        $idUsuario = $_POST['idUsuario']; // Sanitize and validate this ID
-        $nombre = mysqli_real_escape_string($link, $_POST['nombre']);
-        $ap_paterno = mysqli_real_escape_string($link, $_POST['ap_paterno']);
-        $ap_materno = mysqli_real_escape_string($link, $_POST['ap_materno']);
-        $username = mysqli_real_escape_string($link, $_POST['username']);
-        $email = mysqli_real_escape_string($link, $_POST['email']);
-        $contrasena = $_POST['contrasena'];
-        $calle = mysqli_real_escape_string($link, $_POST['calle']);
-        $numero = $_POST['numero'];
-        $colonia = mysqli_real_escape_string($link, $_POST['colonia']);
-        $zip_code = $_POST['zip_code'];
+    session_start(); // Asegúrate de iniciar la sesión en cada script que lo requiera
 
-        $query = "UPDATE Usuarios SET nombre = '$nombre', ap_paterno = '$ap_paterno', ap_materno = '$ap_materno', username = '$username', email = '$email', contrasena = '$contrasena', calle = '$calle', numero = '$numero', colonia = '$colonia', zip_code = '$zip_code' WHERE idUsuario = $idUsuario";
-        $result = mysqli_query($link, $query);
+    if (!isset($_SESSION['username']) || !$_SESSION['is_admin']) {
+        header("Location: login.php"); // Redirige si no es admin o no está logueado
+        exit();
+    }
 
-        if ($result) {
-            echo "Usuario actualizado con éxito.";
-            // Redirect or reload admin dashboard
-        } else {
-            echo "Error al actualizar usuario.";
-        }
+    require_once 'database.php';
+    require_once "HTML/Template/ITX.php";
+
+    $link = getDatabaseConnection();
+    $template = new HTML_Template_ITX('./templates');
+    $template->loadTemplatefile("principal.html", true, true);
+
+    if (isset($_POST['editUser'])) {
+        echo "Cargando datos para editar.";
+        cargarDatosUsuarios($template, $link);
+    }
+    
+    if (isset($_POST['actualizarUsurario'])) {
+        echo "Actualizando datos.";
+        actualizarDatosUsuario($template, $link);
+        cargarDashboardAdmin($template, $_SESSION['username'], $link);
     }
 ?>
