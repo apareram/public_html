@@ -44,15 +44,6 @@ function addScheduleEntry() {
 // Ejecuta la función una vez para añadir el primer conjunto de selección de horario
 addScheduleEntry();
 
-//funcion error
-function verifica() {
-    if (document.formaPresidentes.apellidoPresidente.value.length == 0) {
-        alert("Por favor ingresa el apellido del presidente.");
-        return false;
-    }
-    return true;
-}
-
 // Supongamos que tienes un endpoint 'obtenerNotificaciones.php' que devuelve el número de notificaciones para el usuario
 function actualizarNotificaciones() {
     fetch('obtenerNotificaciones.php') // Asegúrate de que esta URL apunte a tu script PHP que devuelve el número de notificaciones
@@ -74,3 +65,40 @@ document.addEventListener('DOMContentLoaded', actualizarNotificaciones);
 // Además, podrías establecer un intervalo para actualizar las notificaciones periódicamente
 // Por ejemplo, actualizar cada 5 minutos
 setInterval(actualizarNotificaciones, 300000); // 300000 ms = 5 minutos
+
+function buscaUsuarios(busqueda) {
+    console.log('Iniciando búsqueda: ' + busqueda);
+    var params = "busqueda=" + encodeURIComponent(busqueda);
+    console.log('Params: ' + params);
+
+    $.ajax({
+        url: "./buscaUsuarios.php",
+        type: 'GET',
+        data: params,
+        success: function(result) {
+            console.log('Resultado recibido: ' + result);
+            $("#resultadoBusqueda").html(result);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error en AJAX: ' + error);
+        }
+    });
+}
+
+function muestraContenido(result, status, xhr) {
+    $("#resultadoBusqueda").html(result);
+}
+
+function funcionError(xhr, status, error) {
+    alert('Error: ' + error + 'Status: ' + status);
+}
+
+function enviarPoke(idUsuario) {
+    var url = "enviarPoke.php";
+    var params = { idUsuario: idUsuario };
+    $.post(url, params, function(data) {
+        alert(data);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        alert("Error al enviar poke: " + textStatus + " " + errorThrown);
+    });
+}

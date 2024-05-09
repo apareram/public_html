@@ -41,6 +41,9 @@
             case 'mensajes':
                 include 'mensajes.php';
                 break;
+            case 'verPerfil':
+                include 'verPerfil.php';
+                break;
             default:
                 // Mostrar mensaje de acción desconocida para depuración
                 $template->addBlockfile("CONTENIDO", "UNKNOWN_ACTION", "unknownAction.html");
