@@ -22,7 +22,7 @@
             $template->touchBlock("LOGIN");
         } 
 
-        global $username = '';
+        $username = '';
 
         // Inicio de sesión
         if (isset($_GET['loginBot'])) {

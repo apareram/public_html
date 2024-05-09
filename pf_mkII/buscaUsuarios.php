@@ -1,10 +1,10 @@
 <?php
-    require_once "database.php";  // Cambia esta línea para incluir database.php en lugar de config.php
+    require_once "database.php"; 
     require_once "HTML/Template/ITX.php";
 
-    $link = getDatabaseConnection();  // Esta línea ahora debería funcionar correctamente
+    $link = getDatabaseConnection();  
 
-    $busqueda = $_GET['busqueda'] ?? '';  // Asegurarse de que la variable existe
+    $busqueda = $_GET['busqueda'] ?? '';
     $busqueda = mysqli_real_escape_string($link, $busqueda);
     $query = "SELECT idUsuario, nombre, ap_paterno, ap_materno, username, email FROM Usuarios WHERE CONCAT(nombre, ' ', ap_paterno, ' ', ap_materno, ' ', username, ' ', email) LIKE CONCAT('%', ?, '%')";
     $stmt = mysqli_prepare($link, $query);

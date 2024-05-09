@@ -1,12 +1,32 @@
 <body>
-    <div>
-        <h3>Elige tu horario de clase</h3>
-    </div>
-    <div class="schedule-container">
-        <h3>Horario de Clases</h3>
+    <form action="horario.php" method="post">
+        <div>
+            <h3>Elige tu horario de clase</h3>
+        </div>
         <div id="scheduleEntries">
             <!-- Los horarios se añadirán aquí dinámicamente -->
         </div>
         <button type="button" id="addSchedule">Añadir Horario</button>
+        <button type="submit">Guardar Horario</button>
+    </form>
+    <div id="currentSchedule">
+        <table class="table-users">
+            <thead>
+                <tr>
+                    <th>Día</th>
+                    <th>Llegada</th>
+                    <th>Salida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BEGIN HORAS -->
+                <tr>
+                    <td>{DIA}</td>
+                    <td>{LLEGADA}</td>
+                    <td>{SALIDA}</td>
+                </tr>
+                <!-- END HORAS -->
+            </tbody>
+        </table>
     </div>
 </body>
