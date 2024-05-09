@@ -26,6 +26,21 @@
             case 'perfil':
                 include 'perfil.php';
                 break;
+            case 'favoritos':
+                include 'favoritos.php';
+                break;
+            case 'historial':
+                include 'historial.php';
+                break;
+            case 'horario':
+                include 'horario.php';
+                break;
+            case 'notificaciones':
+                include 'notificaciones.php';
+                break;
+            case 'mensajes':
+                include 'mensajes.php';
+                break;
             default:
                 // Mostrar mensaje de acción desconocida para depuración
                 $template->addBlockfile("CONTENIDO", "UNKNOWN_ACTION", "unknownAction.html");

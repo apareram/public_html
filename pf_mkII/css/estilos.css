@@ -55,17 +55,6 @@ button:hover {
     background-color: #841717;
 }
 
-.search-bar, .admin-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Asegura que estos elementos ocupen el ancho completo */
-}
-
-.search-bar {
-    margin-top: 10px; /* Espacio entre el header y la barra de búsqueda */
-}
-
 /* Estilización del input y botón de búsqueda */
 .search-bar input[type="text"], .search-bar button {
     padding: 10px;
@@ -83,7 +72,6 @@ button:hover {
 .search-bar button:hover {
     background-color: #003d82;
 }
-
 
 /* Contenedor de la tabla para gestionar el overflow */
 .table-container {
@@ -118,14 +106,6 @@ button:hover {
     margin-right: 5px;
 }
 
-.action-link.edit-button {
-    background-color: #4CAF50; /* Verde */
-}
-
-.action-link.delete-button {
-    background-color: #f44336; /* Rojo para borrar */
-}
-
 /* Footer */
 footer {
     background: #333;
@@ -138,58 +118,6 @@ footer {
 }
 
 /* Estilos para el perfil del usuario en el dashboard */
-.user-profile {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 95%;
-    margin-bottom: 20px;
-}
-
-.hello-user {
-    font-size: 1.2em;
-    color: #333;
-}
-
-.profile-circle {
-    flex-shrink: 0;
-}
-
-.profile-circle img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid #ba0707;
-}
-
-.notifications {
-    position: relative;
-    padding-left: 15px;
-}
-
-.notifications span {
-    background-color: #ba0707;
-    padding: 5px 10px;
-    border-radius: 50%;
-    color: white;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 0.8em;
-}
-
-/* Estilos para la barra de búsqueda */
-.search-bar {
-    width: 95%;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-/* Estilos para la página de perfil del usuario */
 .profile-container {
     background-color: white;
     padding: 20px;
@@ -230,8 +158,4 @@ footer {
 
 .profile-actions .action-link:hover {
     background-color: #367c2b;
-}
-
-.action-link p {
-    margin: 0;
 }
