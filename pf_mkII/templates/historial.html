@@ -1,28 +1,25 @@
-<div class="search-history-container">
-    <div class="search-history-header">
-        <h2>Historial de Búsqueda</h2>
+<body>
+    <div class="container">
+        <h1>Historial de Búsquedas</h1>
+        {MENSAJE}
+        <table class="table-users">
+            <thead>
+                <tr>
+                    <th>Término Buscado</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BEGIN HISTORIA -->
+                <tr>
+                    <td>{TERMINO_BUSCADO}</td>
+                    <td>{FECHA}</td>
+                </tr>
+                <!-- END HISTORIA -->
+            </tbody>
+        </table>
     </div>
-    <div class="search-history-list">
-        <!-- Aquí se mostrará el historial de búsqueda -->
-        <div class="search-history-item">
-            <h3>Usuario buscado 1</h3>
-            <span class="search-date">Fecha: 2024-05-06</span>
-        </div>
-        <div class="search-history-item">
-            <h3>Usuario buscado 2</h3>
-            <span class="search-date">Fecha: 2024-05-05</span>
-        </div>
-        <!-- Agrega más elementos de historial de búsqueda según sea necesario -->
-    <div class="profile-actions">
-            <a href="notificaciones.html" class="action-link">
-                <p><a href="proyectoFinal2.php?action=notificaciones">Notificaciones</a></p>
-                <!--<img src="path_to_notifications_icon" alt="Notificaciones">-->
-            </a>
-            <a href="favoritos.html" class="action-link">
-                <p><a href="proyectoFinal2.php?action=favoritos">Favoritos</a></p>
-            </a>
-            <a href="historial.html" class="action-link">
-                <p><a href="proyectoFinal2.php?action=historial">Historial</a></p>
-            </a>
-            
+    <div class="navigation">
+        <a href="router.php?action=dashboard">Inicio</a>
     </div>
+</body>

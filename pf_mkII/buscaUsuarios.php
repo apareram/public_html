@@ -19,11 +19,13 @@
     if (mysqli_num_rows($result) > 0) {
         while ($line = mysqli_fetch_assoc($result)) {
             $template->setCurrentBlock("USUARIO");
+            $template->setVariable("IDUSUARIO", $line['idUsuario']);
             $template->setVariable("NOMBRE", $line['nombre']);
             $template->setVariable("AP_PATERNO", $line['ap_paterno']);
             $template->setVariable("AP_MATERNO", $line['ap_materno']);
             $template->setVariable("USERNAME", $line['username']);
             $template->setVariable("EMAIL", $line['email']);
+            $template->setVariable("BUSQUEDA", $busqueda);
             $template->parseCurrentBlock("USUARIO");
         }
     } else {

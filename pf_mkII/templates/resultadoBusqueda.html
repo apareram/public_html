@@ -1,6 +1,11 @@
 <!-- BEGIN USUARIO -->
 <p>
     {NOMBRE} {AP_PATERNO} {AP_MATERNO} - {USERNAME} - {EMAIL}
-    <a href="router.php?action=verPerfil&idUsuario={IDUSUARIO}&busqueda={BUSQUEDA_URLENCODE}" class="button">Ver Perfil</a>
+    <form action="router.php" method="get">
+        <input type="hidden" name="action" value="verPerfil">
+        <input type="hidden" name="idUsuario" value="{IDUSUARIO}">
+        <input type="hidden" name="busqueda" value="{BUSQUEDA}"> <!-- Asegúrate de que esta variable esté definida y contenga el valor deseado -->
+        <button type="submit" class="button">Ver Perfil</button>
+    </form>
 </p>
 <!-- END USUARIO -->
